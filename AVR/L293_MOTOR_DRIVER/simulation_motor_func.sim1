@@ -1,0 +1,21 @@
+<circuit version="1.1.0-SR1" rev="2005" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="MCU" CircId="mega328-1" mainComp="false" Show_id="true" Show_Val="false" Pos="-192,-180" rotation="0" hflip="1" vflip="1" label="mega328-1" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="../Documents/Atmel Studio/7.0/motor_func/motor_func/Debug/motor_func.hex" Auto_Load="false" saveEepr="true" Logic_Symbol="false" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
+
+<item itemtype="DcMotor" CircId="DcMotor-2" mainComp="false" Show_id="true" Show_Val="false" Pos="92,-76" rotation="0" hflip="1" vflip="1" label="DcMotor-2" idLabPos="-22,-48" labelrot="0" valLabPos="-14,36" valLabRot="0" RPM_Nominal="60 _RPM" Volt_Nominal="5 V" Resistance="100 Ω" />
+
+<item itemtype="Subcircuit" CircId="L293-3" mainComp="false" Show_id="true" Show_Val="false" Pos="-40,-108" rotation="0" hflip="1" vflip="1" label="L293-3" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+09 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" Logic_Symbol="true" />
+
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-4" mainComp="false" Show_id="false" Show_Val="false" Pos="-120,-28" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-4" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
+
+<item itemtype="Connector" uid="Connector-1" startpinid="mega328-1-PORTB5" endpinid="L293-3-1A" pointList="-152,-100,-48,-100" />
+
+<item itemtype="Connector" uid="Connector-2" startpinid="mega328-1-PORTB4" endpinid="L293-3-2A" pointList="-152,-92,-48,-92" />
+
+<item itemtype="Connector" uid="Connector-5" startpinid="L293-3-2Y" endpinid="DcMotor-2-rPin" pointList="0,-92,8,-92,8,-28,132,-28,132,-76" />
+
+<item itemtype="Connector" uid="Connector-6" startpinid="Fixed Voltage-4-outnod" endpinid="L293-3-12EN" pointList="-104,-28,-104,-84,-48,-84" />
+
+<item itemtype="Connector" uid="Connector-4" startpinid="L293-3-1Y" endpinid="DcMotor-2-lPin" pointList="0,-100,0,-132,52,-132,52,-76" />
+
+</circuit>
