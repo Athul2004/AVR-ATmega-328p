@@ -1,0 +1,245 @@
+
+SPI.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  0000018a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000136  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  0000018a  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001bc  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  000001fc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000842  00000000  00000000  0000022c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000721  00000000  00000000  00000a6e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000318  00000000  00000000  0000118f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000044  00000000  00000000  000014a8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003c7  00000000  00000000  000014ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000141  00000000  00000000  000018b3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000038  00000000  00000000  000019f4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 58 00 	call	0xb0	; 0xb0 <main>
+  78:	0c 94 99 00 	jmp	0x132	; 0x132 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <spi_master_init>:
+// ==========================
+// SPI Master Initialization
+// ==========================
+void spi_master_init(void) {
+	// MOSI, SCK, SS, LED -> outputs
+	DDR_SPI |= (1 << PIN_MOSI) | (1 << PIN_SCK) | (1 << PIN_SS) | (1 << LED_PIN);
+  80:	84 b1       	in	r24, 0x04	; 4
+  82:	8d 62       	ori	r24, 0x2D	; 45
+  84:	84 b9       	out	0x04, r24	; 4
+	// MISO -> input
+	DDR_SPI &= ~(1 << PIN_MISO);
+  86:	84 b1       	in	r24, 0x04	; 4
+  88:	8f 7e       	andi	r24, 0xEF	; 239
+  8a:	84 b9       	out	0x04, r24	; 4
+
+	// Enable SPI, Master mode, f_osc/16
+	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
+  8c:	81 e5       	ldi	r24, 0x51	; 81
+  8e:	8c bd       	out	0x2c, r24	; 44
+
+	// Deselect slave initially (SS high)
+	PORT_SPI |= (1 << PIN_SS);
+  90:	85 b1       	in	r24, 0x05	; 5
+  92:	84 60       	ori	r24, 0x04	; 4
+  94:	85 b9       	out	0x05, r24	; 5
+  96:	08 95       	ret
+
+00000098 <spi_master_transmit>:
+// ==========================
+// SPI Transmit Function
+// ==========================
+char spi_master_transmit(char data) {
+	// Select slave (SS low)
+	PORT_SPI &= ~(1 << PIN_SS);
+  98:	95 b1       	in	r25, 0x05	; 5
+  9a:	9b 7f       	andi	r25, 0xFB	; 251
+  9c:	95 b9       	out	0x05, r25	; 5
+
+	// Send data
+	SPDR = data;
+  9e:	8e bd       	out	0x2e, r24	; 46
+
+	// Wait for transmission to complete
+	while (!(SPSR & (1 << SPIF)));
+  a0:	0d b4       	in	r0, 0x2d	; 45
+  a2:	07 fe       	sbrs	r0, 7
+  a4:	fd cf       	rjmp	.-6      	; 0xa0 <spi_master_transmit+0x8>
+
+	// Deselect slave (SS high)
+	PORT_SPI |= (1 << PIN_SS);
+  a6:	85 b1       	in	r24, 0x05	; 5
+  a8:	84 60       	ori	r24, 0x04	; 4
+  aa:	85 b9       	out	0x05, r24	; 5
+
+	// Return received data
+	return SPDR;
+  ac:	8e b5       	in	r24, 0x2e	; 46
+}
+  ae:	08 95       	ret
+
+000000b0 <main>:
+
+// ==========================
+// Main Program
+// ==========================
+int main(void) {
+	spi_master_init();           // Initialize SPI
+  b0:	0e 94 40 00 	call	0x80	; 0x80 <spi_master_init>
+
+	// LED initially OFF
+	PORTB &= ~(1 << LED_PIN);
+  b4:	85 b1       	in	r24, 0x05	; 5
+  b6:	8e 7f       	andi	r24, 0xFE	; 254
+  b8:	85 b9       	out	0x05, r24	; 5
+
+	while (1) {
+		// Send 'H' to slave and get response
+		char received_data = spi_master_transmit('H');
+  ba:	88 e4       	ldi	r24, 0x48	; 72
+  bc:	0e 94 4c 00 	call	0x98	; 0x98 <spi_master_transmit>
+
+		// -------------------------------------
+		// LED behavior
+		// -------------------------------------
+		if (received_data == 'A') {
+  c0:	81 34       	cpi	r24, 0x41	; 65
+  c2:	51 f5       	brne	.+84     	; 0x118 <main+0x68>
+			// Slave responded with 'A' ? turn LED ON for 1 second
+			PORTB |= (1 << LED_PIN);
+  c4:	85 b1       	in	r24, 0x05	; 5
+  c6:	81 60       	ori	r24, 0x01	; 1
+  c8:	85 b9       	out	0x05, r24	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ca:	2f ef       	ldi	r18, 0xFF	; 255
+  cc:	33 ed       	ldi	r19, 0xD3	; 211
+  ce:	80 e3       	ldi	r24, 0x30	; 48
+  d0:	21 50       	subi	r18, 0x01	; 1
+  d2:	30 40       	sbci	r19, 0x00	; 0
+  d4:	80 40       	sbci	r24, 0x00	; 0
+  d6:	e1 f7       	brne	.-8      	; 0xd0 <main+0x20>
+  d8:	00 c0       	rjmp	.+0      	; 0xda <main+0x2a>
+  da:	00 00       	nop
+			_delay_ms(1000);
+			PORTB &= ~(1 << LED_PIN);
+  dc:	85 b1       	in	r24, 0x05	; 5
+  de:	8e 7f       	andi	r24, 0xFE	; 254
+  e0:	85 b9       	out	0x05, r24	; 5
+  e2:	1d c0       	rjmp	.+58     	; 0x11e <main+0x6e>
+		}
+		else {
+			// No valid response or no slave connected ? blink twice quickly
+			for (uint8_t i = 0; i < 2; i++) {
+				PORTB |= (1 << LED_PIN);
+  e4:	95 b1       	in	r25, 0x05	; 5
+  e6:	91 60       	ori	r25, 0x01	; 1
+  e8:	95 b9       	out	0x05, r25	; 5
+  ea:	9f ef       	ldi	r25, 0xFF	; 255
+  ec:	23 ec       	ldi	r18, 0xC3	; 195
+  ee:	39 e0       	ldi	r19, 0x09	; 9
+  f0:	91 50       	subi	r25, 0x01	; 1
+  f2:	20 40       	sbci	r18, 0x00	; 0
+  f4:	30 40       	sbci	r19, 0x00	; 0
+  f6:	e1 f7       	brne	.-8      	; 0xf0 <main+0x40>
+  f8:	00 c0       	rjmp	.+0      	; 0xfa <main+0x4a>
+  fa:	00 00       	nop
+				_delay_ms(200);
+				PORTB &= ~(1 << LED_PIN);
+  fc:	95 b1       	in	r25, 0x05	; 5
+  fe:	9e 7f       	andi	r25, 0xFE	; 254
+ 100:	95 b9       	out	0x05, r25	; 5
+ 102:	9f ef       	ldi	r25, 0xFF	; 255
+ 104:	23 ec       	ldi	r18, 0xC3	; 195
+ 106:	39 e0       	ldi	r19, 0x09	; 9
+ 108:	91 50       	subi	r25, 0x01	; 1
+ 10a:	20 40       	sbci	r18, 0x00	; 0
+ 10c:	30 40       	sbci	r19, 0x00	; 0
+ 10e:	e1 f7       	brne	.-8      	; 0x108 <main+0x58>
+ 110:	00 c0       	rjmp	.+0      	; 0x112 <main+0x62>
+ 112:	00 00       	nop
+			_delay_ms(1000);
+			PORTB &= ~(1 << LED_PIN);
+		}
+		else {
+			// No valid response or no slave connected ? blink twice quickly
+			for (uint8_t i = 0; i < 2; i++) {
+ 114:	8f 5f       	subi	r24, 0xFF	; 255
+ 116:	01 c0       	rjmp	.+2      	; 0x11a <main+0x6a>
+ 118:	80 e0       	ldi	r24, 0x00	; 0
+ 11a:	82 30       	cpi	r24, 0x02	; 2
+ 11c:	18 f3       	brcs	.-58     	; 0xe4 <main+0x34>
+ 11e:	8f ef       	ldi	r24, 0xFF	; 255
+ 120:	97 ea       	ldi	r25, 0xA7	; 167
+ 122:	21 e6       	ldi	r18, 0x61	; 97
+ 124:	81 50       	subi	r24, 0x01	; 1
+ 126:	90 40       	sbci	r25, 0x00	; 0
+ 128:	20 40       	sbci	r18, 0x00	; 0
+ 12a:	e1 f7       	brne	.-8      	; 0x124 <main+0x74>
+ 12c:	00 c0       	rjmp	.+0      	; 0x12e <main+0x7e>
+ 12e:	00 00       	nop
+ 130:	c4 cf       	rjmp	.-120    	; 0xba <main+0xa>
+
+00000132 <_exit>:
+ 132:	f8 94       	cli
+
+00000134 <__stop_program>:
+ 134:	ff cf       	rjmp	.-2      	; 0x134 <__stop_program>
