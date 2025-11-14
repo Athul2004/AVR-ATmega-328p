@@ -1,0 +1,9 @@
+<circuit version="1.1.0-SR1" rev="2005" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="MCU" CircId="mega328-1" mainComp="false" Show_id="true" Show_Val="false" Pos="-828,-264" rotation="0" hflip="1" vflip="1" label="mega328-1" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="../../../Desktop/EMBEDDED_SYSTEM_D/EMBEDDED_SYSTEM/AVR/fast_pwm_timer_0/fast_pwm_timer_0/Debug/fast_pwm_timer_0.hex" Auto_Load="false" saveEepr="true" Logic_Symbol="false" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
+
+<item itemtype="Oscope" CircId="Oscope-2" mainComp="false" Show_id="false" Show_Val="false" Pos="-556,-204" rotation="0" hflip="1" vflip="1" label="Oscope-2" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _px" Basic_Y="135 _px" BufferSize="600000" connectGnd="true" InputImped="10 MΩ" TimDiv="279530821" TimPos="0,0,0,0," VolDiv="1,1,1,1," Tunnels=",,,," Trigger="4" Filter="0.1 V" AutoSC="4" Tracks="1" HideCh="false,false,false,false," VolPos="0,0,0,0," />
+
+<item itemtype="Connector" uid="Connector-1" startpinid="mega328-1-PORTD6" endpinid="Oscope-2-Pin0" pointList="-836,-168,-864,-168,-864,-112,-692,-112,-692,-252,-644,-252" />
+
+</circuit>
